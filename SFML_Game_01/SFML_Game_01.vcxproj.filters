@@ -1,0 +1,190 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Resource Files\Resources">
+      <UniqueIdentifier>{00c743c3-c6d1-4ec8-9fe6-01ac2d0531af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Resources\Fonts">
+      <UniqueIdentifier>{a4115847-2fd1-4e57-b91b-8d4d2eb4d70a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Resources\Images">
+      <UniqueIdentifier>{1d75a503-bb28-467a-be45-d4ffbd58e863}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Resources\Animations">
+      <UniqueIdentifier>{04f3d1d0-eb7b-4bb2-abc3-1c547623cedf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteAnimation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimatedSpriteGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BoxGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PolygonGameObject.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RayCastCallback.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticPhysicsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicPhysicsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimatedSpriteGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PolygonGameObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Release\Resources\Images\dickbutt.png">
+      <Filter>Resource Files\Resources\Images</Filter>
+    </Image>
+    <Image Include="..\Release\myicon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="..\Debug\Resources\Images\blob.png">
+      <Filter>Resource Files\Resources\Images</Filter>
+    </Image>
+    <Image Include="..\Debug\Resources\Images\error.png">
+      <Filter>Resource Files\Resources\Images</Filter>
+    </Image>
+    <Image Include="..\Debug\Resources\Images\player.png">
+      <Filter>Resource Files\Resources\Images</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-Italic.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-Light.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-LightItalic.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-Regular.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-Semibold.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-SemiboldItalic.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-Bold.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-BoldItalic.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-ExtraBold.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+    <Font Include="..\Release\Resources\Fonts\OpenSans-ExtraBoldItalic.ttf">
+      <Filter>Resource Files\Resources\Fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="res.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res.aps">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Resources\Animations\test_anim.txt">
+      <Filter>Resource Files\Resources\Animations</Filter>
+    </Text>
+    <Text Include="example.txt">
+      <Filter>Resource Files\Resources\Animations</Filter>
+    </Text>
+    <Text Include="player_idle.txt">
+      <Filter>Resource Files\Resources\Animations</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

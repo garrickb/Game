@@ -1,0 +1,6 @@
+PATH/FILE
+animations per second
+frames with structure {startX, startY, width, height}
+^
+^
+^
