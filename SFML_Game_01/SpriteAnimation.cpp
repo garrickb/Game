@@ -17,7 +17,6 @@ SpriteAnimation::SpriteAnimation(std::string path, bool repeat)
  */
 void SpriteAnimation::load()
 {
-	std::cout << "LOADING ANIMATIION." << m_filepath << std::endl;
 	if (m_filepath.size() == 0)
 	{
 		std::cerr << "Provided empty animation path!" << std::endl;
@@ -26,9 +25,7 @@ void SpriteAnimation::load()
 	/* Check if we've already loaded this animation file. */
 	std::map<std::string, animationMapItem>::iterator it = loadedAnimations.find(m_filepath);
 	if (it == loadedAnimations.end()) {
-
-		std::cout << "Loading animation for the first time: " << m_filepath << std::endl;
-
+		//std::cout << "Loading animation for the first time: " << m_filepath << std::endl;
 		std::ifstream animationFile(m_filepath);
 
 		if (!animationFile)
@@ -83,7 +80,7 @@ void SpriteAnimation::load()
 
 					//make sprite
 					sprites.push_back(new Sprite(imgPath, startX, startY, width, height));
-					sprites[sprites.size() - 1]->setOrigin(sf::Vector2f(width / 2, height / 2));
+					sprites[sprites.size() - 1]->setOrigin(sf::Vector2f(width / 2.f, height / 2.f));
 					break;
 				}
 				++i;
@@ -108,13 +105,13 @@ void SpriteAnimation::load()
 
 		loadedAnimations[m_filepath] = item;
 	} else {
-		std::cout << "Found animation in map already: " << it->first << std::endl;
+		//std::cout << "Found animation in map already: " << it->first << std::endl;
 		length = it->second.data.length;
 		dimensions = it->second.data.dimensions;
 		sprites = it->second.data.sprites;
 	}
 
-	m_origin = sf::Vector2f(dimensions.x / 2, dimensions.y / 2);
+	m_origin = sf::Vector2f(dimensions.x / 2.f, dimensions.y / 2.f);
 
 	++loadedAnimations[m_filepath].count;
 
@@ -141,7 +138,7 @@ void SpriteAnimation::load(std::string filePath)
 	load();
 }
 
-void SpriteAnimation::update(World* world, float dTime)
+void SpriteAnimation::update(World* world)
 {
 	//std::cout << m_clock.getElapsedTime().asSeconds() << "/" << length << std::endl;
 	if (length != 0)

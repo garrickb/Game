@@ -66,7 +66,7 @@ bool Sprite::loadTexture()
 	/* Check if we've already loaded this particular image. */
 	std::map<std::string, mapItem>::iterator it = loadedTextures.find(m_path);
 	if (it == loadedTextures.end()) {
-		std::cout << "Loading image for first time: " << m_path << std::endl;
+		//std::cout << "Loading image for first time: " << m_path << std::endl;
 		if (!loadedTextures[m_path].texture.loadFromFile(m_path))
 		{
 			std::cerr << "Failed to load image from path: " << m_path << std::endl;

@@ -3,9 +3,7 @@
 #include "SpriteAnimation.h"
 #include "BoxGameObject.h"
 
-#include "StaticPhysicsComponent.h";
-
-#define PHYSICS_SIMULATION_SPEED 1.f/60.f
+#include "StaticPhysicsComponent.h"
 
 /*
  *	Create the game window and initalize the clock.
@@ -30,99 +28,80 @@ void Game::init()
 
 	*/
 
-	//Add the player into the game.
-	objects.push_back(new AnimatedSpriteGameObject("player_idle",
-		new PlayerInputComponent(),
-		new PlayerPhysicsComponent(),
-		new PlayerGraphicsComponent()));
+	std::vector<Component*> *comps = new std::vector<Component*>;
 
-	objects.push_back(new AnimatedSpriteGameObject("player_idle",
-		new PlayerInputComponent(),
-		new PlayerPhysicsComponent(),
-		new PlayerGraphicsComponent()));
+	//------------------------------------
+	//TODO: Capsule Support for player.  |
+	//------------------------------------
 
-	objects.push_back(new AnimatedSpriteGameObject("player_idle",
-		new PlayerInputComponent(),
-		new PlayerPhysicsComponent(),
-		new PlayerGraphicsComponent()));
+	//Player
+	comps->push_back(new PlayerInputComponent());
+	comps->push_back(new PlayerPhysicsComponent());
+	objects.push_back(new AnimatedSpriteGameObject("player_idle", *comps));
 
-	objects.push_back(new AnimatedSpriteGameObject("player_idle",
-		new PlayerInputComponent(),
-		new PlayerPhysicsComponent(),
-		new PlayerGraphicsComponent()));
+	//Floor
+	comps = new std::vector<Component*>;
+	comps->push_back(new StaticPhysicsComponent());
+	objects.push_back(new BoxGameObject(400, 575, 800, 50, *comps));
 
-	objects.push_back(new BoxGameObject(300, 575, 1000, 50,
-		new InputComponent(),
-		new StaticPhysicsComponent(),
-		new GraphicsComponent()));
+	//Wall
+	comps = new std::vector<Component*>;
+	comps->push_back(new StaticPhysicsComponent());
+	objects.push_back(new BoxGameObject(775, 300, 50, 600, *comps));
 
-	objects.push_back(new BoxGameObject(775, 300, 50, 600,
-		new InputComponent(),
-		new StaticPhysicsComponent(),
-		new GraphicsComponent()));
+	//128x128 box
+	comps = new std::vector<Component*>;
+	comps->push_back(new StaticPhysicsComponent(false));
+	objects.push_back(new BoxGameObject(200, 486, 128, 128, *comps));
 
-	objects.push_back(new BoxGameObject(400, 300, 50, 400,
-		new InputComponent(),
-		new StaticPhysicsComponent(true),
-		new GraphicsComponent()));
+	//Rotating rectangle of doom
+	comps = new std::vector<Component*>;
+	comps->push_back(new StaticPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(400, 300, 25, 250, *comps));
 
-	objects.push_back(new BoxGameObject(200, 486, 128, 128,
-		new InputComponent(),
-		new StaticPhysicsComponent(),
-		new GraphicsComponent()));
+	/* Dynamic Pyramid */
+
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(500, 450, 50, 50, *comps));
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(550, 450, 50, 50, *comps));
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(600, 450, 50, 50, *comps));
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(650, 450, 50, 50, *comps));
+
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(525, 400, 50, 50, *comps));
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(575, 400, 50, 50, *comps));
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(600, 400, 50, 50, *comps));
+
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(550, 350, 50, 50, *comps));
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(600, 350, 50, 50, *comps));
+
+	comps = new std::vector<Component*>;
+	comps->push_back(new DynamicPhysicsComponent(true));
+	objects.push_back(new BoxGameObject(575, 300, 50, 50, *comps));
 
 
 
-	/* Bottom */
-	objects.push_back(new BoxGameObject(500, 450, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
 
-	objects.push_back(new BoxGameObject(550, 450, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-	objects.push_back(new BoxGameObject(600, 450, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-
-	objects.push_back(new BoxGameObject(650, 450, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-	/* 2nd row*/
-	objects.push_back(new BoxGameObject(525, 400, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-
-	objects.push_back(new BoxGameObject(575, 400, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-	objects.push_back(new BoxGameObject(600, 400, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-
-	/* 3rd row*/
-	objects.push_back(new BoxGameObject(550, 350, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-
-	objects.push_back(new BoxGameObject(600, 350, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
-
-	/* top */
-	objects.push_back(new BoxGameObject(575, 300, 50, 50,
-		new InputComponent(),
-		new DynamicPhysicsComponent(),
-		new GraphicsComponent()));
+	///* top */
+	//objects.push_back(new BoxGameObject(575, 300, 50, 50,
+	//	new InputComponent(),
+	//	new DynamicPhysicsComponent()));
 }
 
 /*
@@ -176,19 +155,16 @@ void Game::update()
 #endif
 	
 	/* Handle Box2D Physics */
-	m_stepTime += m_time;
-	if (m_stepTime.asSeconds() >= PHYSICS_SIMULATION_SPEED)
-	{
-		m_world->box2DWorld->Step(m_stepTime.asSeconds(), 25, 15);
+
+		m_world->box2DWorld->Step(m_time.asSeconds(), 25, 15);
 
 		/* Update All Objects */
 		for (std::vector<GameObject*>::iterator it = objects.begin(); it != objects.end(); ++it)
 		{
-			if (*(it))
-				(*it)->update(m_world, PHYSICS_SIMULATION_SPEED);
+			(*it)->update(m_world);
 		}
 		m_stepTime = *new sf::Time;
-	}
+	
 }
 
 /*
@@ -198,7 +174,7 @@ void Game::render()
 {	
 	for (std::vector<GameObject*>::iterator it = objects.begin(); it != objects.end(); ++it)
 	{
-		if (*(it))
+		if (*(it) && (*it)->body)
 			(*it)->render(&m_window);
 	}
 

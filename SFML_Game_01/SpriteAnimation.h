@@ -5,8 +5,8 @@
 
 struct animationData
 {
-	int length;
-	sf::Vector2f dimensions;
+	float length;
+	sf::Vector2i dimensions;
 	std::vector<Sprite*> sprites;
 };
 
@@ -21,13 +21,13 @@ static std::map<std::string, animationMapItem> loadedAnimations;
 class SpriteAnimation
 {
 public:
-	sf::Vector2f dimensions;
+	sf::Vector2i dimensions;
 
 	SpriteAnimation();
 	SpriteAnimation(std::string filePath, bool repeat = true);
 	~SpriteAnimation();
 
-	void update(World* world, float dTime);
+	void update(World* world);
 	void render(Window* window);
 	void inline setPosition(sf::Vector2f position) { m_position = position; }
 	inline void setRotation(float rotation) { m_rotation = rotation; }

@@ -1,22 +1,22 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Component.h"
 
-class PhysicsComponent
+class PhysicsComponent : public Component
 {
-public:
-	PhysicsComponent(){}
-	virtual ~PhysicsComponent(){}
-	inline World* getWorld(){ return m_world; }
-	virtual void update(World* world, GameObject* obj) = 0;
-	inline virtual bool isOnGround() { return m_onGround; }
-	bool initalized;
 protected:
-	virtual void init(World* world, GameObject* obj) = 0;
+	virtual void init(World* world, GameObject* obj)
+	{
+		obj->body->SetAngularVelocity(m_angularVelocity);
+		obj->position.x = obj->body->GetPosition().x * PIXELS_PER_BOX2D_METER;
+		obj->position.y = obj->body->GetPosition().y * PIXELS_PER_BOX2D_METER;
 
-	bool m_onGround;
+		m_initalized = true;
+	}
 
-	World* m_world;
+	bool m_initalized;
+
 	float32 m_angularVelocity;
 
 	b2BodyDef* m_bodyDef;

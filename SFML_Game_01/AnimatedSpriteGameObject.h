@@ -8,12 +8,9 @@ class AnimatedSpriteGameObject : public GameObject
 public:
 	~AnimatedSpriteGameObject();
 
-	AnimatedSpriteGameObject(std::string path,
-		InputComponent* input,
-		PhysicsComponent* physics,
-		GraphicsComponent* graphics);
+	AnimatedSpriteGameObject(std::string path, std::vector<Component*> components);
 
-	void update(World* world, float dTime) override;
+	void update(World* world) override;
 	void render(Window* window) override;
 private:
 	std::string m_path;

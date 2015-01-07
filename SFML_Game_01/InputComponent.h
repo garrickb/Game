@@ -1,14 +1,11 @@
 #pragma once
 
 #include "GameObject.h"
+#include "Component.h"
 
-class InputComponent
+class InputComponent : public Component
 {
 public:
-	virtual ~InputComponent() {}
-	inline virtual void update(World* world, GameObject* obj)
-	{
-		//std::cout << "Default Input Call" << std::endl;
-	}
+	inline virtual void update(World* world, GameObject* obj) = 0;
 };
 

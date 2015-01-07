@@ -8,17 +8,10 @@ class SpriteGameObject : public GameObject
 public:
 	~SpriteGameObject();
 
-	SpriteGameObject(std::string path,
-		InputComponent* input,
-		PhysicsComponent* physics,
-		GraphicsComponent* graphics);
+	SpriteGameObject(std::string path, std::vector<Component*> components);
 
-	SpriteGameObject(std::string path, int startX, int startY, int width, int height,
-		InputComponent* input,
-		PhysicsComponent* physics,
-		GraphicsComponent* graphics);
+	SpriteGameObject(std::string path, int startX, int startY, int width, int height, std::vector<Component*> components);
 
-	void update(World* world, float dTime) override;
 	void render(Window* window) override;
 
 private:

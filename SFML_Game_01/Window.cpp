@@ -11,8 +11,7 @@ Window::~Window() {}
 void Window::create(int width, int height, std::string title)
 {
 	m_window = new sf::RenderWindow(sf::VideoMode(800, 600), "SFML Vidya Game");
-	//m_window->setVerticalSyncEnabled(false);
-	//m_window->setFramerateLimit(60);
+	m_window->setVerticalSyncEnabled(true);
 }
 
 int windowWidth = 800;

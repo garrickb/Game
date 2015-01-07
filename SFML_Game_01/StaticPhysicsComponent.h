@@ -11,7 +11,7 @@ public:
 	inline virtual void update(World* world, GameObject* obj) override
 	{
 		/* Initalize the Box2D body if we haven't already. */
-		if (!initalized)
+		if (!m_initalized)
 			init(world, obj);
 		if (m_rot)
 			m_angularVelocity = 0.5;
@@ -23,7 +23,6 @@ public:
 private:
 	inline virtual void init(World* world, GameObject* obj) override
 	{
-		std::cout << "Initalizing StaticPhysicsComponent." << std::endl;
 		m_bodyDef = new b2BodyDef();
 		m_bodyDef->type = b2_kinematicBody;
 		m_bodyDef->position.Set(obj->position.x / PIXELS_PER_BOX2D_METER, obj->position.y / PIXELS_PER_BOX2D_METER);
@@ -31,12 +30,12 @@ private:
 
 		//Create Shape and Bind to Body
 		m_shape = new b2PolygonShape();
-		m_shape->SetAsBox((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2, (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2);
+		m_shape->SetAsBox((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2.f, (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2.f);
 		obj->body->CreateFixture(m_shape, 0.f);
-		initalized = true;
+
+		PhysicsComponent::init(world, obj);
 	}
 
-	World* m_world;
 	bool m_rot;
 
 };

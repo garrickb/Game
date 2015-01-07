@@ -48,9 +48,6 @@
     <ClInclude Include="PhysicsComponent.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsComponent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -69,9 +66,6 @@
     <ClInclude Include="BoxGameObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PolygonGameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="RayCastCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -79,6 +73,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DynamicPhysicsComponent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -98,9 +95,6 @@
     <ClCompile Include="World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -113,14 +107,11 @@
     <ClCompile Include="BoxGameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="PolygonGameObject.cpp">
+    <ClCompile Include="GameObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\Release\Resources\Images\dickbutt.png">
-      <Filter>Resource Files\Resources\Images</Filter>
-    </Image>
     <Image Include="..\Release\myicon.ico">
       <Filter>Resource Files</Filter>
     </Image>

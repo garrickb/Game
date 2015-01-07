@@ -13,15 +13,14 @@
   <ItemGroup>
     <ClInclude Include="AnimatedSpriteGameObject.h" />
     <ClInclude Include="BoxGameObject.h" />
+    <ClInclude Include="Component.h" />
     <ClInclude Include="DynamicPhysicsComponent.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GraphicsComponent.h" />
     <ClInclude Include="InputComponent.h" />
     <ClInclude Include="Main.h" />
     <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
-    <ClInclude Include="PolygonGameObject.h" />
     <ClInclude Include="RayCastCallback.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="SpriteAnimation.h" />
@@ -36,7 +35,6 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="PolygonGameObject.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="SpriteAnimation.cpp" />
     <ClCompile Include="SpriteGameObject.cpp" />
@@ -48,10 +46,6 @@
     <Image Include="..\Debug\Resources\Images\error.png" />
     <Image Include="..\Debug\Resources\Images\player.png" />
     <Image Include="..\Release\myicon.ico" />
-    <Image Include="..\Release\Resources\Images\dickbutt.png">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</DeploymentContent>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <Font Include="..\Release\Resources\Fonts\OpenSans-Bold.ttf" />

@@ -5,32 +5,24 @@
 
 #define PIXELS_PER_BOX2D_METER 64
 
-class InputComponent;
-class PhysicsComponent;
-class GraphicsComponent;
-
 #ifndef GameObject_h
 #define GameObject_h
 
 #define RAD_TO_ANG 57.2957795
 
+class Component;
+
 class GameObject
 {
 public:
-	float rotation;
 	sf::Vector2f position;
 	sf::Vector2f dimensions;
 
-	GameObject(InputComponent* input,
-		PhysicsComponent* physics,
-		GraphicsComponent* graphics)
-		: m_input(input),
-		m_physics(physics),
-		m_graphics(graphics) {}
+	GameObject(std::vector<Component*> components) : m_components(components) {}
 
-	virtual void update(World* world, float dTime);
+	virtual void update(World* world);
 
-	virtual void render(Window* window);
+	virtual void render(Window* window) = 0;
 
 	inline void setAngularVelocity(float32 angularVelocity) { m_angularVelocity = angularVelocity; }
 
@@ -40,9 +32,7 @@ public:
 private:
 	float32 m_angularVelocity;
 
-	InputComponent* m_input;
-	PhysicsComponent* m_physics;
-	GraphicsComponent* m_graphics;
+	std::vector<Component*> m_components;
 };
 
 #endif
