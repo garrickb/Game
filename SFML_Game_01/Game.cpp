@@ -53,7 +53,7 @@ void Game::init()
 	comps->push_back(new StaticPhysicsComponent());
 	objects.push_back(new BoxGameObject(400, 575, 800, 50, *comps));
 
-	//Wall
+	////Wall
 	comps = new std::vector < Component* > ;
 	comps->push_back(new StaticPhysicsComponent());
 	objects.push_back(new BoxGameObject(775, 300, 50, 600, *comps));
@@ -69,7 +69,7 @@ void Game::init()
 	objects.push_back(new BoxGameObject(400, 300, 25, 250, *comps));
 
 
-	GameObject::ShapeType pyrmaidShape = GameObject::ShapeType::RECTANGLE;
+	//GameObject::ShapeType pyrmaidShape = GameObject::ShapeType::RECTANGLE;
 
 	/* Dynamic Pyramid */
 	comps = new std::vector < Component* > ;

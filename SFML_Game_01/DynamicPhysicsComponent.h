@@ -26,14 +26,6 @@ public:
 		obj->body->SetAngularVelocity(m_angularVelocity);
 		obj->position.x = obj->body->GetWorldCenter().x * PIXELS_PER_BOX2D_METER;
 		obj->position.y = obj->body->GetWorldCenter().y * PIXELS_PER_BOX2D_METER;
-
-		/* Check if we're touching the ground by raycasting downwards. */
-		obj->onGround = true;
-
-		if (obj->body && obj->body->GetContactList() && obj->body->GetContactList()->contact)
-		{
-			//Check if on ground.
-		}
 	}
 private:
 };

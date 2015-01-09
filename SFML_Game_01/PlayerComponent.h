@@ -6,9 +6,9 @@
 #include <set>
 #include <vector>
 
-#define JUMP_CASTS 15
-#define GROUND_FRICTION 0.0f
-#define AIR_FRICTION 0.995f
+#define JUMP_CASTS 10
+#define GROUND_FRICTION 1.0f
+#define AIR_FRICTION 1.0f
 #define GROUND_SPEED 20.0f
 #define AIR_SPEED 7.5f
 
@@ -46,49 +46,19 @@ public:
 				{
 					if (m_jumping)
 					{
-						if (m_jumpClock.getElapsedTime().asSeconds() > 0.5f)
+						if (m_jumpClock.getElapsedTime().asSeconds() > 0.3f)
 						{
 							m_jumping = false;
 							m_jumpClock.restart();
 						}
 					}
-					if (!m_jumping && m_jumpClock.getElapsedTime().asSeconds() > 0.025f)
+					if (!m_jumping && m_jumpClock.getElapsedTime().asSeconds() > 0.075f)
 					{
 						b2Vec2 jumpImpulse(0, -obj->body->GetMass() * 12);
-						b2Vec2 locationUnderPlayer(0.f, (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2.f);//middle of the foot sensor
-						//std::cout << "Start Jump!" << std::endl;
 						m_jumping = true;
-
-						/* Find all bodies were's tanding on, so we can apply kick-off force equally spread out to objects under player. */
-						std::vector<b2Body*> contactBodies;
-						if (obj->body && obj->body->GetContactList() && obj->body->GetContactList()->contact)
-						{
-							for (int i = 0; i < JUMP_CASTS; i++)
-							{
-								RayCastCallback callback;
-								b2Vec2 p1 = b2Vec2((obj->position.x) - ((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2) + i *
-									((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 5), (obj->position.y) + (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2);
-
-								b2Vec2 p2 = b2Vec2((obj->position.x) - (obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2 + i *
-									(obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 5, (obj->position.y) + (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2 + 0.025f);
-
-								world->box2DWorld->RayCast(&callback, p1, p2);
-
-								if (callback.m_fixture && callback.m_fixture->GetBody()->GetType() == b2_dynamicBody)
-									contactBodies.push_back(callback.m_fixture->GetBody());
-							}
-						}
 
 						/* Apply jump force to player. */
 						obj->body->ApplyLinearImpulse(jumpImpulse, b2Vec2(obj->body->GetWorldCenter().x, obj->body->GetWorldCenter().y - (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2), true);
-
-						/* Apply the force to bodies we were standing on. */
-						for (std::vector<b2Body*>::iterator it = contactBodies.begin(); it != contactBodies.end(); ++it)
-						{
-							b2Vec2 force(0, (jumpImpulse.y / contactBodies.size()) * -1);
-							(*it)->ApplyLinearImpulse(force,
-								b2Vec2(obj->body->GetWorldCenter().x, obj->body->GetWorldCenter().y - (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2), true);
-						}
 
 						m_jumpClock.restart();
 						m_jumpStepClock.restart();
@@ -118,20 +88,21 @@ public:
 	{
 		if (m_initalized)
 		{
-			obj->body->GetFixtureList()->SetFriction((obj->onGround) ? GROUND_FRICTION : AIR_FRICTION);
+			obj->body->GetFixtureList()->SetFriction(((obj->onGround) ? GROUND_FRICTION : AIR_FRICTION));
 
 			//TODO: Fix Friction Assertions
 
-			//if (obj->getShapeType() == GameObject::ShapeType::CAPSULE)
-			//{
-			//	obj->body->GetFixtureList()->GetNext()->SetFriction((obj->onGround) ? GROUND_FRICTION : AIR_FRICTION);
+			if (obj->getShapeType() == GameObject::ShapeType::CAPSULE)
+			{
+				obj->body->GetFixtureList()->GetNext()->SetFriction(((obj->onGround) ? GROUND_FRICTION : AIR_FRICTION));
 
-			//	obj->body->GetFixtureList()->GetNext()->GetNext()->SetFriction((obj->onGround) ? GROUND_FRICTION : AIR_FRICTION);
-			//}
+				obj->body->GetFixtureList()->GetNext()->GetNext()->SetFriction(((obj->onGround) ? GROUND_FRICTION : AIR_FRICTION));
+			}
 		}
 
 		m_fixedRotation = true;
 
 		DynamicPhysicsComponent::update(world, obj);
+		
 	}
 };

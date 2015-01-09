@@ -22,7 +22,10 @@ public:
 						WORLD = 0x0004,
 						ENEMY = 0x0006,
 						FRIENDLY = 0x0008,
-						PARTICLE = 0x000A	};
+						PARTICLE = 0x000A,
+						PLAYER_JUMP_SENSOR = 0x000C,
+						PLAYER_LEFT_SENSOR = 0x000E,
+						PLAYER_RIGHT_SENSOR = 0x0011};
 
 	sf::Vector2f position;
 	sf::Vector2f dimensions;

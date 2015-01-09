@@ -7,8 +7,6 @@ class PhysicsComponent : public Component
 protected:
 	void init(World* world, GameObject* obj)
 	{
-		std::cout << "INIT " << m_bodyType  << std::endl;
-
 			//Create Body Def and Bind to Body.
 			m_bodyDef = new b2BodyDef();
 			m_bodyDef->type = m_bodyType;
@@ -21,18 +19,14 @@ protected:
 			switch (obj->getShapeType())
 			{
 			case GameObject::ShapeType::RECTANGLE:
-				std::cout << "Creating Rectangle: (" << (obj->dimensions.x / PIXELS_PER_BOX2D_METER) << ", " << (obj->dimensions.y / PIXELS_PER_BOX2D_METER) << ")" << std::endl;
 				m_shape = new b2PolygonShape();
 				((b2PolygonShape*)m_shape)->SetAsBox((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2.f, (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2.f);
 				break;
 			case GameObject::ShapeType::CIRCLE:
-				std::cout << "Creating Circle: (" << (obj->dimensions.x / PIXELS_PER_BOX2D_METER) << ", " << (obj->dimensions.y / PIXELS_PER_BOX2D_METER) << ")" << std::endl;
 				m_shape = new b2CircleShape();
 				((b2CircleShape*)m_shape)->m_radius = (obj->dimensions.x / PIXELS_PER_BOX2D_METER / 2.f);
 				break;
 			case GameObject::CAPSULE:
-				std::cout << "Creating Capsule: (" << (obj->dimensions.x / PIXELS_PER_BOX2D_METER) << ", " << (obj->dimensions.y / PIXELS_PER_BOX2D_METER) << ")" << std::endl;
-
 				m_shape = new b2PolygonShape();
 				((b2PolygonShape*)m_shape)->SetAsBox((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2.f, ((obj->dimensions.y - obj->dimensions.x) / PIXELS_PER_BOX2D_METER) / 2.f
 					, b2Vec2(0, obj->dimensions.x / 4.f / PIXELS_PER_BOX2D_METER), 0);
@@ -47,10 +41,9 @@ protected:
 				((b2CircleShape*)m_shape3)->m_p.x = 0;
 				((b2CircleShape*)m_shape3)->m_p.y = (-obj->dimensions.x / 2.f) / PIXELS_PER_BOX2D_METER / 2.f;
 
-				m_groundSensor = new b2CircleShape();
-				((b2CircleShape*)m_shape3)->m_radius = (((obj->dimensions.x + 1.f) / PIXELS_PER_BOX2D_METER) / 2.f);
-				((b2CircleShape*)m_shape3)->m_p.x = 0;
-				((b2CircleShape*)m_shape3)->m_p.y = (-obj->dimensions.x / 2.f) / PIXELS_PER_BOX2D_METER / 2.f;
+				m_groundSensor = new b2PolygonShape();
+				((b2PolygonShape*)m_groundSensor)->SetAsBox((obj->dimensions.x - 1.f) / PIXELS_PER_BOX2D_METER / 2.f, obj->dimensions.x / PIXELS_PER_BOX2D_METER / 2.f,
+					b2Vec2(0, (obj->dimensions.y - obj->dimensions.x) / PIXELS_PER_BOX2D_METER), 0);
 				break;
 			}
 
@@ -99,12 +92,11 @@ protected:
 					obj->body->CreateFixture(m_shape3, 0.f);
 				}
 
-				//m_groundSensorFixture = new b2FixtureDef();
-				//m_groundSensorFixture->filter.categoryBits = m_objectType;
-				//m_groundSensorFixture->filter.maskBits = GameObject::ObjectType::WORLD;
-				//m_groundSensorFixture->shape = m_shape3;
-				//m_groundSensorFixture->isSensor = true;
-				//obj->body->CreateFixture(m_groundSensorFixture);
+				m_groundSensorFixture = new b2FixtureDef();
+				m_groundSensorFixture->isSensor = true;
+				m_groundSensorFixture->filter.categoryBits = GameObject::ObjectType::PLAYER_JUMP_SENSOR;
+				m_groundSensorFixture->shape = m_groundSensor;
+				obj->body->CreateFixture(m_groundSensorFixture);
 			} else {
 				if (m_bodyType == b2_dynamicBody)
 				{
@@ -121,7 +113,6 @@ protected:
 				}
 
 			}
-			obj->body->SetUserData(this);
 
 			if (m_bodyType != b2_dynamicBody)
 			{
@@ -129,6 +120,9 @@ protected:
 				obj->position.x = obj->body->GetPosition().x * PIXELS_PER_BOX2D_METER;
 				obj->position.y = obj->body->GetPosition().y * PIXELS_PER_BOX2D_METER;
 			}
+
+
+			obj->body->SetUserData(obj);
 
 		m_initalized = true;
 	}
