@@ -6,6 +6,7 @@
 
 
 static int playerGroundCount;
+static int playerDynamicBodyCount;
 
 class ContactListener : public b2ContactListener
 {
@@ -26,7 +27,11 @@ private:
 			switch (sensorFixture->GetFilterData().categoryBits)
 			{
 			case GameObject::PLAYER_JUMP_SENSOR:
-				std::cout << "Floor Detected" << std::endl;
+				if (triggerFixture->GetFilterData().categoryBits == GameObject::DYNAMIC_WORLD)
+				{
+					++playerDynamicBodyCount;
+					sensor->onDyanamicBody = true;
+				}
 				++playerGroundCount;
 				sensor->onGround = true;
 				break;
@@ -50,11 +55,11 @@ private:
 			switch (sensorFixture->GetFilterData().categoryBits)
 			{
 			case GameObject::PLAYER_JUMP_SENSOR:
-				if(--playerGroundCount == 0)
-				{
-					std::cout << "Jump Disabled" << std::endl;
+				if (--playerGroundCount == 0)
 					sensor->onGround = false;
-				}
+				if (triggerFixture->GetFilterData().categoryBits == GameObject::DYNAMIC_WORLD)
+					if (--playerDynamicBodyCount == 0)
+						sensor->onDyanamicBody = false;
 				break;
 			}
 		}

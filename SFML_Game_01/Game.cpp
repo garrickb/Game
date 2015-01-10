@@ -3,7 +3,7 @@
 #include "SpriteAnimation.h"
 #include "BoxGameObject.h"
 #include "CircleGameObject.h"
-#include "CapsuleGameObject.h"
+#include "CharacterCapsuleGameObject.h"
 
 #include "StaticPhysicsComponent.h"
 
@@ -19,7 +19,7 @@ void Game::init()
 	if (!fpsFont.loadFromFile("Resources/Fonts/OpenSans-Regular.ttf"))
 		std::cout << "Error loading FPS Font." << std::endl;
 	fpsText.setFont(fpsFont);
-	fpsText.setCharacterSize(24);
+	fpsText.setCharacterSize(18);
 	fpsText.setColor(sf::Color::Red);
 #endif
 
@@ -32,21 +32,18 @@ void Game::init()
 
 	std::vector<Component*> *comps = new std::vector < Component* > ;
 
-	//------------------------------------
-	//TODO: Capsule Support for player.  |
-	//------------------------------------
-
 	//Player
-	//comps->push_back(new PlayerInputComponent());
-	//comps->push_back(new PlayerPhysicsComponent());
-	//objects.push_back(new AnimatedSpriteGameObject("player_idle", *comps));
-	//
-	//Psuedo Player
 	comps = new std::vector < Component* >;
 	comps->push_back(new PlayerInputComponent());
 	comps->push_back(new PlayerPhysicsComponent());
-	objects.push_back(new CapsuleGameObject(50, 100, *comps));
-
+	CharacterCapsuleGameObject* player = new CharacterCapsuleGameObject(30, 60, *comps);
+	player->getAnimatedSpriteCollection()->addAnimation("player_idle");
+	player->getAnimatedSpriteCollection()->addAnimation("player_walk_right");
+	player->getAnimatedSpriteCollection()->addAnimation("player_walk_left");
+	player->getAnimatedSpriteCollection()->addAnimation("player_walk_right_still");
+	player->getAnimatedSpriteCollection()->addAnimation("player_walk_left_still");
+	player->getAnimatedSpriteCollection()->addAnimation("player_air");
+	objects.push_back(player);
 
 	//Floor
 	comps = new std::vector < Component* > ;
@@ -65,11 +62,8 @@ void Game::init()
 
 	//Rotating rectangle of doom
 	comps = new std::vector < Component* > ;
-	comps->push_back(new StaticPhysicsComponent());
+	comps->push_back(new StaticPhysicsComponent(true));
 	objects.push_back(new BoxGameObject(400, 300, 25, 250, *comps));
-
-
-	//GameObject::ShapeType pyrmaidShape = GameObject::ShapeType::RECTANGLE;
 
 	/* Dynamic Pyramid */
 	comps = new std::vector < Component* > ;

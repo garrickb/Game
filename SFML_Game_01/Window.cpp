@@ -6,7 +6,7 @@ Window::Window() {}
 Window::~Window() {}
 
 /*
-*	Initalize the window, turn off VSync, and set the OpenGL settings.
+*	Initalize the window and turn on VSync.
 */
 void Window::create(int width, int height, std::string title)
 {

@@ -2,6 +2,9 @@
 
 #include "Component.h"
 
+/* We want our player to be heavy. */
+#define PLAYER_MASS_MULTIPLYER 2.f
+
 class PhysicsComponent : public Component
 {
 protected:
@@ -28,7 +31,7 @@ protected:
 				break;
 			case GameObject::CAPSULE:
 				m_shape = new b2PolygonShape();
-				((b2PolygonShape*)m_shape)->SetAsBox((obj->dimensions.x / PIXELS_PER_BOX2D_METER) / 2.f, ((obj->dimensions.y - obj->dimensions.x) / PIXELS_PER_BOX2D_METER) / 2.f
+				((b2PolygonShape*)m_shape)->SetAsBox(((obj->dimensions.x - 0.2f) / PIXELS_PER_BOX2D_METER) / 2.f, ((obj->dimensions.y - obj->dimensions.x) / PIXELS_PER_BOX2D_METER) / 2.f
 					, b2Vec2(0, obj->dimensions.x / 4.f / PIXELS_PER_BOX2D_METER), 0);
 
 				m_shape2 = new b2CircleShape();
@@ -42,7 +45,7 @@ protected:
 				((b2CircleShape*)m_shape3)->m_p.y = (-obj->dimensions.x / 2.f) / PIXELS_PER_BOX2D_METER / 2.f;
 
 				m_groundSensor = new b2PolygonShape();
-				((b2PolygonShape*)m_groundSensor)->SetAsBox((obj->dimensions.x - 1.f) / PIXELS_PER_BOX2D_METER / 2.f, obj->dimensions.x / PIXELS_PER_BOX2D_METER / 2.f,
+				((b2PolygonShape*)m_groundSensor)->SetAsBox((obj->dimensions.x - 5.f) / PIXELS_PER_BOX2D_METER / 2.f, obj->dimensions.x / PIXELS_PER_BOX2D_METER / 2.f,
 					b2Vec2(0, (obj->dimensions.y - obj->dimensions.x) / PIXELS_PER_BOX2D_METER), 0);
 				break;
 			}
@@ -55,7 +58,7 @@ protected:
 					m_fixture = new b2FixtureDef();
 					m_fixture->filter.categoryBits = m_objectType;
 					m_fixture->shape = m_shape;
-					m_fixture->density = 1.f;
+					m_fixture->density = 1.f * (m_objectType == GameObject::PLAYER?PLAYER_MASS_MULTIPLYER:1);
 					m_fixture->friction = m_frictionless ? 0.0f : OBJECT_FRICTION;
 					m_fixture->restitution = 0.f;
 
@@ -69,7 +72,7 @@ protected:
 					m_fixture2 = new b2FixtureDef();
 					m_fixture2->filter.categoryBits = m_objectType;
 					m_fixture2->shape = m_shape2;
-					m_fixture2->density = 1.0f;
+					m_fixture2->density = 1.0f * (m_objectType == GameObject::PLAYER ? PLAYER_MASS_MULTIPLYER : 1);
 					m_fixture2->friction = m_frictionless ? 0.0f : OBJECT_FRICTION;
 					m_fixture2->restitution = 0.f;
 
@@ -83,7 +86,7 @@ protected:
 					m_fixture3 = new b2FixtureDef();
 					m_fixture3->filter.categoryBits = m_objectType;
 					m_fixture3->shape = m_shape3;
-					m_fixture3->density = 1.0f;
+					m_fixture3->density = 1.0f * (m_objectType == GameObject::PLAYER ? PLAYER_MASS_MULTIPLYER : 1);
 					m_fixture3->friction = m_frictionless ? 0.0f : OBJECT_FRICTION;
 					m_fixture3->restitution = 0.f;
 
@@ -103,7 +106,7 @@ protected:
 					m_fixture = new b2FixtureDef();
 					m_fixture->filter.categoryBits = m_objectType;
 					m_fixture->shape = m_shape;
-					m_fixture->density = 1.0f;
+					m_fixture->density = 1.0f * (m_objectType == GameObject::PLAYER ? PLAYER_MASS_MULTIPLYER : 1);
 					m_fixture->friction = m_frictionless ? 0.0f : OBJECT_FRICTION;
 					m_fixture->restitution = 0.f;
 

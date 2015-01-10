@@ -6,11 +6,10 @@
 class DynamicPhysicsComponent : public PhysicsComponent
 {
 public:
-	DynamicPhysicsComponent(GameObject::ObjectType objectType = GameObject::ObjectType::WORLD, bool fixedRotation = false, bool frictonless = false)
+	DynamicPhysicsComponent(GameObject::ObjectType objectType = GameObject::ObjectType::DYNAMIC_WORLD, bool fixedRotation = false)
 	{
 		m_objectType = objectType;
 		m_fixedRotation = fixedRotation;
-		m_frictionless = frictonless;
 	}
 	virtual ~DynamicPhysicsComponent(){}
 
@@ -20,7 +19,7 @@ public:
 		if (!m_initalized && !obj->body)
 		{
 			m_bodyType = b2_dynamicBody;
-			PhysicsComponent:init(world, obj);
+			PhysicsComponent::init(world, obj);
 		}
 		/* Update the visual representation of the GameObject. */
 		obj->body->SetAngularVelocity(m_angularVelocity);

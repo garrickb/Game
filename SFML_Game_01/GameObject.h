@@ -20,8 +20,8 @@ public:
 
 	enum ObjectType {	PLAYER = 0x0002,
 						WORLD = 0x0004,
-						ENEMY = 0x0006,
-						FRIENDLY = 0x0008,
+						DYNAMIC_WORLD = 0x0006,
+						ENEMY = 0x0008,
 						PARTICLE = 0x000A,
 						PLAYER_JUMP_SENSOR = 0x000C,
 						PLAYER_LEFT_SENSOR = 0x000E,
@@ -42,7 +42,12 @@ public:
 
 	b2Body* body;
 
+	virtual void setFriction(float32 friction);
+
 	bool onGround;
+
+	//User for player only.
+	bool onDyanamicBody = false;;
 protected:
 	ShapeType m_shapeType;
 private:

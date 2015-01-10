@@ -10,6 +10,8 @@ AnimatedSpriteGameObject::AnimatedSpriteGameObject(std::string path, std::vector
 {
 	std::cout << "Allocated AnimatedSpriteGameObject pointing to: " << m_path << std::endl;
 
+	m_shapeType = ShapeType::CAPSULE;
+
 	m_sprite.load(path);
 	dimensions.x = m_sprite.dimensions.x;
 	dimensions.y = m_sprite.dimensions.y;
