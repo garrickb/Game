@@ -27,15 +27,16 @@ public:
 	SpriteAnimation(std::string filePath, bool repeat = true);
 	~SpriteAnimation();
 
-	void update(World* world);
-	void render(Window* window);
-	void inline setPosition(sf::Vector2f position) { m_position = position; }
-	inline void setRotation(float rotation) { m_rotation = rotation; }
-	inline sf::Vector2f getOrigin() { return m_origin; }
-	void load();
-	void load(std::string filePath);
+	virtual void update(World* world);
+	virtual void render(Window* window);
+	inline virtual void setPosition(sf::Vector2f position) { m_position = position; }
+	inline virtual void setRotation(float rotation) { m_rotation = rotation; }
+	inline virtual sf::Vector2f getOrigin() { return m_origin; }
+	inline void setFrame(int frame) { m_frame = frame; }
+	void load(std::string filePath, bool repeat = true);
 	void remove();
 private:
+	virtual void load();
 	sf::Vector2f m_origin;
 	float m_rotation;
 	sf::Clock m_clock;

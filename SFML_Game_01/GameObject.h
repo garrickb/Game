@@ -4,6 +4,7 @@
 #include "World.h"
 
 #define PIXELS_PER_BOX2D_METER 64
+#define OBJECT_FRICTION 0.65f
 
 #ifndef GameObject_h
 #define GameObject_h
@@ -15,6 +16,17 @@ class Component;
 class GameObject
 {
 public:
+	enum ShapeType { RECTANGLE, CIRCLE, CAPSULE };
+
+	enum ObjectType {	PLAYER = 0x0002,
+						WORLD = 0x0004,
+						DYNAMIC_WORLD = 0x0006,
+						ENEMY = 0x0008,
+						PARTICLE = 0x000A,
+						PLAYER_JUMP_SENSOR = 0x000C,
+						PLAYER_LEFT_SENSOR = 0x000E,
+						PLAYER_RIGHT_SENSOR = 0x0011};
+
 	sf::Vector2f position;
 	sf::Vector2f dimensions;
 
@@ -26,9 +38,18 @@ public:
 
 	inline void setAngularVelocity(float32 angularVelocity) { m_angularVelocity = angularVelocity; }
 
+	inline ShapeType getShapeType() { return m_shapeType; }
+
 	b2Body* body;
 
+	virtual void setFriction(float32 friction);
+
 	bool onGround;
+
+	//User for player only.
+	bool onDyanamicBody = false;;
+protected:
+	ShapeType m_shapeType;
 private:
 	float32 m_angularVelocity;
 

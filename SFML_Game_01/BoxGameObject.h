@@ -12,6 +12,6 @@ public:
 	inline void update(World* world){ GameObject::update(world); };
 	void render(Window* window) override;
 private:
-
+	void init(int width, int height, std::vector<Component*> components);
 	sf::RectangleShape m_rect;
 };
