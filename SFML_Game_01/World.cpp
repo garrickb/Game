@@ -7,6 +7,7 @@ World::World()
 {
 	ContactListener *listenerInstance = new ContactListener();
 	box2DWorld->SetContactListener(listenerInstance);
+	box2DWorld->SetAllowSleeping(true);
 	std::cout << "Initalizing World With Gravity: (" << box2DWorld->GetGravity().x << ", " << box2DWorld->GetGravity().y << ")" << std::endl;
 }
 

@@ -4,6 +4,8 @@
 #include "BoxGameObject.h"
 #include "CircleGameObject.h"
 #include "CharacterCapsuleGameObject.h"
+#include "TriangleGameObject.h"
+#include "DebugDraw.h"
 
 #include "StaticPhysicsComponent.h"
 
@@ -36,7 +38,7 @@ void Game::init()
 	comps = new std::vector < Component* >;
 	comps->push_back(new PlayerInputComponent());
 	comps->push_back(new PlayerPhysicsComponent());
-	CharacterCapsuleGameObject* player = new CharacterCapsuleGameObject(30, 60, *comps);
+	CharacterCapsuleGameObject* player = new CharacterCapsuleGameObject(100, 0, 30, 60, *comps);
 	player->getAnimatedSpriteCollection()->addAnimation("player_idle");
 	player->getAnimatedSpriteCollection()->addAnimation("player_walk_right");
 	player->getAnimatedSpriteCollection()->addAnimation("player_walk_left");
@@ -58,7 +60,7 @@ void Game::init()
 	//128x128 box
 	comps = new std::vector < Component* > ;
 	comps->push_back(new StaticPhysicsComponent());
-	objects.push_back(new BoxGameObject(200, 486, 128, 128, *comps));
+	objects.push_back(new TriangleGameObject(0.f, 200, 486, 228, 128, *comps));
 
 	//Rotating rectangle of doom
 	comps = new std::vector < Component* > ;
@@ -98,7 +100,14 @@ void Game::init()
 
 	comps = new std::vector < Component* > ;
 	comps->push_back(new DynamicPhysicsComponent());
-	objects.push_back(new BoxGameObject(575, 50, 50, 50, *comps));
+	objects.push_back(new TriangleGameObject(0.f, 575, 50, 50, 50, *comps));
+
+#ifdef DEBUG
+	DebugDraw* debugDraw = new DebugDraw(*m_window.getSfWindow());
+	m_world->box2DWorld->SetDebugDraw(debugDraw);
+	debugDraw->SetFlags(b2Draw::e_shapeBit); //Only draw shapes
+#endif
+
 }
 
 /*
@@ -176,6 +185,9 @@ void Game::render()
 	}
 
 #ifdef DEBUG
+	/* Draw Box2D Shapes*/
+	m_world->box2DWorld->DrawDebugData();
+
 	/* Draw FPS */
 	m_window.getSfWindow()->draw(fpsText);
 #endif
