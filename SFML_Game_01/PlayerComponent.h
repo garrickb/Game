@@ -6,17 +6,16 @@
 #include <set>
 #include <vector>
 
-//TODO: Is friction broken?
-
-#define JUMP_CASTS 10
-
 #define GROUND_FRICTION 0.95f
-#define IDLE_GROUND_FRICTION 10.f
-#define DYANMIC_BODY_FRICTION 0.275f
+#define IDLE_GROUND_FRICTION 15.f
+#define IDLE_GROUND_FRICTION_BODY2_SLOPE 200.f
+#define IDLE_GROUND_FRICTION_BODY2_SLOPE_MOVING 0.0f
+#define DYANMIC_BODY_FRICTION 0.45f
 #define AIR_FRICTION 0.0f
 
-#define GROUND_SPEED 20.f
-#define AIR_SPEED 7.5f
+#define GROUND_SPEED 12.5f
+#define AIR_SPEED 15.0f
+#define JUMP_SPEED 15.f
 
 #ifndef Components
 #define Components
@@ -41,14 +40,15 @@ public:
 			b2Vec2 linearVelocity = obj->body->GetLinearVelocity();
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 			{
+				/* Quick Turn, set velocity to 0 if we are gonna be moving in another direction. */
 				if (linearVelocity.x < 0)
 					obj->body->SetLinearVelocity(b2Vec2(0, linearVelocity.y));
 				obj->body->ApplyForceToCenter(b2Vec2((obj->onGround ? GROUND_SPEED : AIR_SPEED) * obj->body->GetMass(), 0), true);
-				//obj->body->ApplyLinearImpulse(b2Vec2((obj->onGround ? GROUND_SPEED : AIR_SPEED), 0), obj->body->GetWorldCenter(), true);
 				(static_cast<CharacterCapsuleGameObject*>(obj))->keyRight = true;
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
 			{
+				/* Quick Turn, set velocity to 0 if we are gonna be moving in another direction. */
 				if (linearVelocity.x > 0)
 					obj->body->SetLinearVelocity(b2Vec2(0, linearVelocity.y));
 				obj->body->ApplyForceToCenter(b2Vec2((obj->onGround ? -GROUND_SPEED : -AIR_SPEED) * obj->body->GetMass(), 0), true);
@@ -68,14 +68,13 @@ public:
 					}
 					if (!m_jumping && m_jumpClock.getElapsedTime().asSeconds() > 0.075f)
 					{
-						b2Vec2 jumpImpulse(0, -obj->body->GetMass() * 12);
+						b2Vec2 jumpImpulse(0, -obj->body->GetMass() * JUMP_SPEED);
 						m_jumping = true;
 
 						/* Apply jump force to player. */
 						obj->body->ApplyLinearImpulse(jumpImpulse, b2Vec2(obj->body->GetWorldCenter().x, obj->body->GetWorldCenter().y - (obj->dimensions.y / PIXELS_PER_BOX2D_METER) / 2), true);
 
 						m_jumpClock.restart();
-						m_jumpStepClock.restart();
 					}
 				}
 			}
@@ -88,7 +87,6 @@ public:
 private:
 	bool m_jumping;
 	sf::Clock m_jumpClock;
-	sf::Clock m_jumpStepClock;
 };
 
 class PlayerPhysicsComponent : public DynamicPhysicsComponent 
@@ -131,6 +129,33 @@ public:
 
 
 			obj->setFriction((float32)((obj->onDyanamicBody) ? DYANMIC_BODY_FRICTION : (obj->onGround) ? ((player->keyLeft || player->keyRight) ? GROUND_FRICTION : IDLE_GROUND_FRICTION) : AIR_FRICTION));
+
+			if (obj->body2)
+			{
+				obj->revoluteJoint->EnableMotor(false);
+				if (obj->onSlope)
+				{
+					obj->revoluteJoint->EnableMotor(true);
+					obj->body2->SetGravityScale(0.2f);
+					if (!player->keyLeft && !player->keyRight)
+						obj->setFriction(IDLE_GROUND_FRICTION_BODY2_SLOPE, obj->body2);
+					else
+						obj->setFriction(IDLE_GROUND_FRICTION_BODY2_SLOPE_MOVING, obj->body2);
+				} else {
+					obj->revoluteJoint->SetLimits(-180, 180);
+					obj->body->SetGravityScale(1.f);
+					if (!player->keyLeft && !player->keyRight)
+						obj->revoluteJoint->EnableMotor(true);
+				}
+			}
+
+			if (obj->onSlope)
+			{
+				obj->body->SetGravityScale(0.2f);
+			}
+			else {
+				obj->body->SetGravityScale(1.f);
+			}
 
 			/* Reset the key values. */
 			player->keyLeft = false;

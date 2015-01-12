@@ -16,7 +16,7 @@ class Component;
 class GameObject
 {
 public:
-	enum ShapeType { RECTANGLE, CIRCLE, CAPSULE };
+	enum ShapeType { RECTANGLE, TRIANGLE, CIRCLE, CAPSULE };
 
 	enum ObjectType {	PLAYER = 0x0002,
 						WORLD = 0x0004,
@@ -42,9 +42,16 @@ public:
 
 	b2Body* body;
 
+	//Needed for unicycle on capsule game object.
+	b2Body* body2;
+	b2RevoluteJointDef* revoluteJointDef;
+	b2RevoluteJoint* revoluteJoint;
+
 	virtual void setFriction(float32 friction);
+	virtual void setFriction(float32 friction, b2Body* bod);
 
 	bool onGround;
+	bool onSlope;
 
 	//User for player only.
 	bool onDyanamicBody = false;;
